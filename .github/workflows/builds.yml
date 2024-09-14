@@ -1,0 +1,36 @@
+name: Builds
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * 1
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Login
+          echo "${{ secrets.GITLAB }}" | podman login registry.gitlab.com -u charles250 --password-stdin
+      - name: Build PupaOS normal container
+        run: |
+          git clone https://gitlab.com/pupahq/os/container.git
+          pushd container
+          git checkout f40
+          popd
+          podman build -t registry.gitlab.com/pupahq/os/container:f40 container
+      - name: Build PupaOS desktop system image
+        run: |
+          git clone https://gitlab.com/pupahq/os/desktop-container.git
+          podman build -t registry.gitlab.com/pupahq/os/desktop-container:latest desktop-container
+      - name: Build PupaOS ISO container
+        run: |
+          git clone https://gitlab.com/pupahq/os/isov2.git
+          pushd isov2
+          git checkout latest
+          popd
+          podman build -t registry.gitlab.com/pupahq/os/isov2:latest isov2
+      - name: Push them all
+        run: |
+          podman push registry.gitlab.com/pupahq/os/container:f40
+          podman push registry.gitlab.com/pupahq/os/desktop-container:latest
+          podman push registry.gitlab.com/pupahq/os/isov2:latest
