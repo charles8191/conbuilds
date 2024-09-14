@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Login
-          echo "${{ secrets.GITLAB }}" | podman login registry.gitlab.com -u charles250 --password-stdin
+        run: echo "${{ secrets.GITLAB }}" | podman login registry.gitlab.com -u charles250 --password-stdin
       - name: Build PupaOS normal container
         run: |
           git clone https://gitlab.com/pupahq/os/container.git
