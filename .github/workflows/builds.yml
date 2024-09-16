@@ -28,5 +28,4 @@ jobs:
       - name: Push them all
         run: |
           podman push registry.gitlab.com/pupahq/os/container:a9
-          podman push registry.gitlab.com/pupahq/os/desktop-container:latest
-          podman push registry.gitlab.com/pupahq/os/isov2:latest
+          podman push registry.gitlab.com/pupahq/os/isov2:a9
