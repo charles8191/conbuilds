@@ -24,7 +24,7 @@ jobs:
           pushd isov2
           git checkout latest
           popd
-          podman build -t registry.gitlab.com/pupahq/os/isov2:a9 isov2
+          podman build -t registry.gitlab.com/pupahq/os/isov2:a9 isov2/a9
       - name: Push them all
         run: |
           podman push registry.gitlab.com/pupahq/os/container:a9
