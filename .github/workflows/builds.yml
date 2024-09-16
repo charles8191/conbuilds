@@ -15,22 +15,18 @@ jobs:
         run: |
           git clone https://gitlab.com/pupahq/os/container.git
           pushd container
-          git checkout f40
+          git checkout a9
           popd
-          podman build -t registry.gitlab.com/pupahq/os/container:f40 container
-      - name: Build PupaOS desktop system image
-        run: |
-          git clone https://gitlab.com/pupahq/os/desktop-container.git
-          podman build -t registry.gitlab.com/pupahq/os/desktop-container:latest desktop-container
+          podman build -t registry.gitlab.com/pupahq/os/container:a9 container
       - name: Build PupaOS ISO container
         run: |
           git clone https://gitlab.com/pupahq/os/isov2.git
           pushd isov2
           git checkout latest
           popd
-          podman build -t registry.gitlab.com/pupahq/os/isov2:latest isov2
+          podman build -t registry.gitlab.com/pupahq/os/isov2:a9 isov2
       - name: Push them all
         run: |
-          podman push registry.gitlab.com/pupahq/os/container:f40
+          podman push registry.gitlab.com/pupahq/os/container:a9
           podman push registry.gitlab.com/pupahq/os/desktop-container:latest
           podman push registry.gitlab.com/pupahq/os/isov2:latest
