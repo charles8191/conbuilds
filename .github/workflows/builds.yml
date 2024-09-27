@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Login
-        run: echo "${{ secrets.GITLAB }}" | podman login registry.gitlab.com -u charles250 --password-stdin
+        run: echo "${{ secrets.GPC }}" | podman login git.private.coffee -u charles --password-stdin
       - name: Build PupaOS normal container
         run: |
-          git clone https://gitlab.com/pupahq/os/container.git
+          git clone https://git.private.coffee/pupaos/container.git
           pushd container
           git checkout a9
           popd
-          podman build -t registry.gitlab.com/pupahq/os/container:a9 container
+          podman build -t git.private.coffee/pupaos/container:a9 container
       - name: Build PupaOS ISO container
         run: |
-          git clone https://gitlab.com/pupahq/os/isov2.git
-          pushd isov2
+          git clone https://git.private.coffee/pupaos/iso
+          pushd iso
           git checkout latest
           popd
-          podman build -t registry.gitlab.com/pupahq/os/isov2:a9 isov2/a9
+          podman build -t git.private.coffee/pupaos/iso:a9 iso/a9
       - name: Push them all
         run: |
-          podman push registry.gitlab.com/pupahq/os/container:a9
-          podman push registry.gitlab.com/pupahq/os/isov2:a9
+          podman push git.private.coffee/pupaos/container:a9
+          podman push git.private.coffee/pupaos/iso:a9
