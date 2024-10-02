@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Login
-        run: echo "${{ secrets.GPC }}" | podman login git.private.coffee -u charles --password-stdin
+        run: echo "${{ secrets.GIT_ALMALINUX_ORG }}" | podman login git.almalinux.org -u charles --password-stdin
       - name: Build PupaOS normal container
         run: |
-          git clone https://git.private.coffee/pupaos/container.git
+          git clone https://git.almalinux.org/pupaos/container.git
           pushd container
           git checkout a9
           popd
-          podman build -t git.private.coffee/pupaos/container:a9 container
+          podman build -t git.almalinux.org/pupaos/container:a9 container
       - name: Build PupaOS ISO container
         run: |
-          git clone https://git.private.coffee/pupaos/iso
+          git clone https://git.almalinux.org/pupaos/iso
           pushd iso
           git checkout latest
           popd
-          podman build -t git.private.coffee/pupaos/iso:a9 iso/a9
+          podman build -t git.almalinux.org/pupaos/iso:a9 iso/a9
       - name: Push them all
         run: |
-          podman push git.private.coffee/pupaos/container:a9
-          podman push git.private.coffee/pupaos/iso:a9
+          podman push git.almalinux.org/pupaos/container:a9
+          podman push git.almalinux.org/pupaos/iso:a9
