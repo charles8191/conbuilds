@@ -10,22 +10,22 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Login
-        run: echo "${{ secrets.GIT_ALMALINUX_ORG }}" | podman login git.almalinux.org -u charles --password-stdin
+        run: echo "${{ secrets.CODEBERG }}" | podman login codeberg.org -u charles --password-stdin
       - name: Build PupaOS normal container
         run: |
-          git clone https://git.almalinux.org/pupaos/container.git
+          git clone https://codeberg.org/pupaos/container.git
           pushd container
-          git checkout a9
+          git checkout latest
           popd
-          podman build -t git.almalinux.org/pupaos/container:a9 container
+          podman build -t codeberg.org/pupaos/container:c9s container
       - name: Build PupaOS ISO container
         run: |
-          git clone https://git.almalinux.org/pupaos/iso
+          git clone https://codeberg.org/pupaos/iso
           pushd iso
           git checkout latest
           popd
-          podman build -t git.almalinux.org/pupaos/iso:a9 iso/a9
+          podman build -t codeberg.org/pupaos/iso:c9s iso/c9s
       - name: Push them all
         run: |
-          podman push git.almalinux.org/pupaos/container:a9
-          podman push git.almalinux.org/pupaos/iso:a9
+          podman push codeberg.org/pupaos/container:c9s
+          podman push codeberg.org/pupaos/iso:c9s
