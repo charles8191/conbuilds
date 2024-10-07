@@ -17,15 +17,15 @@ jobs:
           pushd container
           git checkout latest
           popd
-          podman build -t codeberg.org/pupaos/container:c9s container
+          podman build -t codeberg.org/pupaos/container:latest container
       - name: Build PupaOS ISO container
         run: |
           git clone https://codeberg.org/pupaos/iso
           pushd iso
           git checkout latest
           popd
-          podman build -t codeberg.org/pupaos/iso:c9s iso/c9s
+          podman build -t codeberg.org/pupaos/iso:r9 iso/r9
       - name: Push them all
         run: |
-          podman push codeberg.org/pupaos/container:c9s
-          podman push codeberg.org/pupaos/iso:c9s
+          podman push codeberg.org/pupaos/container:latest
+          podman push codeberg.org/pupaos/iso:r9
